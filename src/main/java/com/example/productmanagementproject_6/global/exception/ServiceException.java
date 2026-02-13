@@ -1,7 +1,14 @@
 package com.example.productmanagementproject_6.global.exception;
 
-public class ServiceException extends RuntimeException {
-  public ServiceException(String message) {
-    super(message);
-  }
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
+
+@Getter
+public class ServiceException extends RuntimeException{
+    private final HttpStatus status;
+
+    public ServiceException(HttpStatus status, String message) {
+        super(message);
+        this.status = status;
+    }
 }
