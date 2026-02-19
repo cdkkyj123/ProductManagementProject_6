@@ -2,6 +2,7 @@ package com.example.productmanagementproject_6.order.entity;
 
 
 import com.example.productmanagementproject_6.global.entity.BaseEntity;
+import com.example.productmanagementproject_6.product.entity.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,32 +19,48 @@ public class Order extends BaseEntity {
     private Long id;
 
     @Column(nullable = false)
-    private int productPrice;
-
-    @Column(nullable = false)
     private int quantity;
 
     @Column(nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
-//  product 매핑
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "product_id")
-//    private Product product;
+    @Column(nullable = false)
+    private String productName;
 
-//  user 매핑
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    @Column(nullable = false)
+    private int productPrice;
 
-    public Order(int productPrice, int quantity, String status
-//    ,Product product , User user
-    ) {
+    @Column
+    private String cancelReason;
+
+    @Column(nullable = false)
+    private String userName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    public void cancelOrder(String reason) {
+        this.status = OrderStatus.CANCELLED;
+        this.cancelReason = reason;
+    }
+
+    public void completeOrder() {
+        this.status = OrderStatus.COMPLETED;
+    }
+
+    public void updateOrderStatus(OrderStatus orderStatus) {
+        this.status = orderStatus;
+    }
+
+    public Order(int productPrice, int quantity, OrderStatus status, String productName , String userName, Product product) {
         this.productPrice = productPrice;
         this.quantity = quantity;
         this.status = status;
-//        this.product = product;
-//        this.user = user;
+        this.productName = productName;
+        this.userName = userName;
+        this.product = product;
     }
 
 }
