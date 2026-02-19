@@ -28,15 +28,15 @@ public class User extends BaseEntity {
     private String password;
 
     @Column(nullable = false)
-    private String phone;
+    private String phoneNumber;
 
 //    private UserRole role;
 
 
-    public User(String username, String email, String password, String phone) {
+    public User(String username, String email, String password, String phoneNumber) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
     }
 }
