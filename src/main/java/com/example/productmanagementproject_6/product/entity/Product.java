@@ -41,5 +41,4 @@ public class Product extends BaseEntity {
         this.status = status;
         this.user = user;
     }
-    // alright
 }
