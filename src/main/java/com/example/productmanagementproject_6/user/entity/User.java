@@ -39,5 +39,4 @@ public class User extends BaseEntity {
         this.password = password;
         this.phoneNumber = phoneNumber;
     }
-    // alright
 }

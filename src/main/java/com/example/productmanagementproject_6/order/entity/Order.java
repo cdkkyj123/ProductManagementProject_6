@@ -54,5 +54,4 @@ public class Order extends BaseEntity {
         this.product = product;
         this.user = user;
     }
-    // alright
 }
