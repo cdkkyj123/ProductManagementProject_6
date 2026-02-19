@@ -3,7 +3,6 @@ package com.example.productmanagementproject_6.order.entity;
 
 import com.example.productmanagementproject_6.global.entity.BaseEntity;
 import com.example.productmanagementproject_6.product.entity.Product;
-import com.example.productmanagementproject_6.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,13 +19,23 @@ public class Order extends BaseEntity {
     private Long id;
 
     @Column(nullable = false)
-    private int productPrice;
-
-    @Column(nullable = false)
     private int quantity;
 
     @Column(nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
+    @Column(nullable = false)
+    private String productName;
+
+    @Column(nullable = false)
+    private int productPrice;
+
+    @Column
+    private String cancelReason;
+
+    @Column(nullable = false)
+    private String userName;
 
 //  product 매핑
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,5 +54,5 @@ public class Order extends BaseEntity {
         this.product = product;
         this.user = user;
     }
-
+    // alright
 }
