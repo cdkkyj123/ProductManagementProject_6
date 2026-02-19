@@ -43,4 +43,5 @@ public class Cart extends BaseEntity {
         this.user = user;
         this.product = product;
     }
+    // alright
 }
