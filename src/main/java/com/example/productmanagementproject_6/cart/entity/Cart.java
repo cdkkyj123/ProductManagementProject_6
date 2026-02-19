@@ -1,4 +1,4 @@
-package com.example.productmanagementproject_6.order.entity;
+package com.example.productmanagementproject_6.cart.entity;
 
 
 import com.example.productmanagementproject_6.global.entity.BaseEntity;
@@ -9,41 +9,38 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "orders")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Getter
-public class Order extends BaseEntity {
+@Entity
+@Table(name = "carts")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Cart extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private int productPrice;
-
-    @Column(nullable = false)
     private int quantity;
 
-    @Column(nullable = false)
-    private String status;
-
-//  product 매핑
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
-
-//  user 매핑
+    // 유저매핑
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    public Order(int productPrice, int quantity, String status, Product product , User user) {
-        this.productPrice = productPrice;
-        this.quantity = quantity;
-        this.status = status;
-        this.product = product;
-        this.user = user;
-    }
+//    상품 매핑
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Product product;
 
+//    생성자
+    public Cart(Long id, User user, Product product) {
+        this.id = id;
+        this.user = user;
+        this.product = product;
+    }
 }
